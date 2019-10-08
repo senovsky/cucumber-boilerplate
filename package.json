@@ -33,7 +33,7 @@
     "test:features": "npm run local-webserver & (wdio wdio.BUILD.conf.js; wdio_ret=$?; forever stopall; exit $wdio_ret)"
   },
   "dependencies": {
-    "@babel/cli": "^7.2.3",
+    "@babel/cli": "^7.6.3",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
