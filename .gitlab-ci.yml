@@ -1,0 +1,46 @@
+stages:
+  - test
+  - report
+
+e2e_chrome_admin:
+  stage: test
+  only:
+    - develop
+    - e2e-tests
+  tags:
+    - test-e2e
+  script:
+    - cd e2e
+    - npm install
+    - ./edit-template.sh
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - e2e/.tmp/report.html
+
+tests_passed:
+  stage: report
+  when: on_success
+  only:
+    - develop
+    - e2e-tests
+  tags:
+    - test-e2e
+  script:
+    - cd e2e
+    - ./publish-report.sh
+    - 'curl -X POST --data-urlencode "payload={\"text\": \"All e2e tests have passed\"}" https://hooks.slack.com/services/'
+
+tests_failed:
+  stage: report
+  when: on_failure
+  only:
+    - develop
+    - e2e-tests
+  tags:
+    - test-e2e
+  script:
+    - cd e2e
+    - ./publish-report.sh
+    - 'curl -X POST --data-urlencode "payload={\"text\": \"I am terribly sorry to announce that the e2e tests have failed\"}" https://hooks.slack.com/services/'

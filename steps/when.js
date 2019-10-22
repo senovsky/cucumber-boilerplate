@@ -1,5 +1,10 @@
+import { When } from 'cucumber';
+
 import clearInputField from '../support/action/clearInputField';
 import clickElement from '../support/action/clickElement';
+import mightClickElement from '../support/action/mightClickElement';
+import clickAllElements from '../support/action/clickAllElements';
+import clickContainingText from '../support/action/clickContainingText';
 import closeLastOpenedWindow from '../support/action/closeLastOpenedWindow';
 import deleteCookies from '../support/action/deleteCookies';
 import dragElement from '../support/action/dragElement';
@@ -14,9 +19,8 @@ import selectOptionByIndex from '../support/action/selectOptionByIndex';
 import setCookie from '../support/action/setCookie';
 import setInputField from '../support/action/setInputField';
 import setPromptText from '../support/action/setPromptText';
-
-const { When } = require('cucumber');
-
+import uploadFile from '../support/action/uploadFile';
+import backForward from '../support/action/backForward';
 
 When(
     /^I (click|doubleclick) on the (link|button|element) "([^"]*)?"$/,
@@ -24,12 +28,28 @@ When(
 );
 
 When(
-    /^I (add|set) "([^"]*)?" to the inputfield "([^"]*)?"$/,
+    /^I might click on the (link|button|element) "([^"]*)?"$/,
+    mightClickElement
+);
+
+When(
+    /^I click on all the elements "([^"]*)?"$/,
+    clickAllElements
+);
+
+When(
+    // use only when XPath doesn't work
+    /^I click on the element "([^"]*)?" containing the text "([^"]*)?"$/,
+    clickContainingText
+);
+
+When(
+    /^I (add|set|type) "([^"]*)?" to the input field "([^"]*)?"$/,
     setInputField
 );
 
 When(
-    /^I clear the inputfield "([^"]*)?"$/,
+    /^I clear the input field "([^"]*)?"$/,
     clearInputField
 );
 
@@ -94,6 +114,16 @@ When(
 );
 
 When(
+    /^I upload the file "([^"]*)?" into the element "([^"]*)?"$/,
+    uploadFile
+);
+
+When(
     /^I move to element "([^"]*)?"(?: with an offset of (\d+),(\d+))*$/,
     moveTo
+);
+
+When(
+    /^I go (back|forward)$/,
+    backForward
 );

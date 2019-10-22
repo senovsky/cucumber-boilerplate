@@ -14,6 +14,7 @@ import checkProperty from '../support/check/checkProperty';
 import checkSelected from '../support/check/checkSelected';
 import checkTitle from '../support/check/checkTitle';
 import checkUrl from '../support/check/checkURL';
+import checkUrlContains from '../support/check/checkURLContains';
 import closeAllButFirstTab from '../support/action/closeAllButFirstTab';
 import compareText from '../support/check/compareText';
 import isEnabled from '../support/check/isEnabled';
@@ -84,6 +85,11 @@ Given(
 Given(
     /^the page url is( not)* "([^"]*)?"$/,
     checkUrl
+);
+
+Given(
+    /^the page url contains( not)* "([^"]*)?"$/,
+    checkUrlContains
 );
 
 Given(
