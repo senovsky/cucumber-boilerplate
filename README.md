@@ -23,10 +23,6 @@ In the root folder, the file `.gitlab-ci.yml` contains sections `e2e_*`, `tests_
 Clone this repository and run those commands:
 
 ```
-cd e2e
-```
-
-```
 npm install
 ```
 
@@ -67,4 +63,4 @@ npm test
 # Contribute
 Contact:
 
-Nikola Šenovský - Test Engineer | senovsky@cngroup.dk | +420 605 371 735
+Nikola Šenovský - Test Engineer | senovsky@gmail.com | github.com/senovsky

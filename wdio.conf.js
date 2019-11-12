@@ -25,7 +25,10 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        // './features/**/*.feature',
+        './features/1-Success/1_1-Scenario.feature',
+        './features/1-Success/1_2-ScenarioOutline.feature',
+        './features/2-Failure/2_1-Scenario.feature',
+        './features/2-Failure/2_2-ScenarioOutline.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -194,7 +197,7 @@ exports.config = {
      */
     onPrepare: () => {
         // Parse all feature files using pageObjects.json
-        
+
         // Remove the `.tmp/` folder that holds the json and report files 
         removeSync('.tmp/');
     },
