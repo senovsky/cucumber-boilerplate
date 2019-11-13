@@ -32,7 +32,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2",
-    "@types/cucumber": "^4.0.5",
+    "@types/cucumber": "^6.0.0",
     "@wdio/cli": "^5.15.1",
     "@wdio/config": "^5.15.1",
     "@wdio/cucumber-framework": "^5.15.1",
@@ -40,7 +40,7 @@
     "@wdio/spec-reporter": "^5.15.1",
     "@wdio/sync": "^5.15.1",
     "chai": "^4.2.0",
-    "chromedriver": "^77.0.0",
+    "chromedriver": "^78.0.1",
     "eslint-plugin-wdio": "^5.13.2",
     "fs-extra": "^8.1.0",
     "webdriverio": "^5.15.1"
