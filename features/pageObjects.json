@@ -1,0 +1,4 @@
+{
+    "h1": "div h1",
+    "p containing <text>": "//p[contains(text(),'<text>')]"
+}

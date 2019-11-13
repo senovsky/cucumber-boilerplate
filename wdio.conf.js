@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 const cucumberJson = require('wdio-cucumberjs-json-reporter').default;
 const { removeSync } = require('fs-extra');
+
 const start = new Date().getTime();
 const startStr = Date(start).toString();
 
@@ -28,7 +30,7 @@ exports.config = {
         './features/1-Success/1_1-Scenario.feature',
         './features/1-Success/1_2-ScenarioOutline.feature',
         './features/2-Failure/2_1-Scenario.feature',
-        './features/2-Failure/2_2-ScenarioOutline.feature'
+        './features/2-Failure/2_2-ScenarioOutline.feature',
     ],
     // Patterns to exclude.
     exclude: [
@@ -198,7 +200,7 @@ exports.config = {
     onPrepare: () => {
         // Parse all feature files using pageObjects.json
 
-        // Remove the `.tmp/` folder that holds the json and report files 
+        // Remove the `.tmp/` folder that holds the json and report files
         removeSync('.tmp/');
     },
     /**
@@ -255,9 +257,11 @@ exports.config = {
     // },
     /**
      * Runs after a Cucumber step
+     * @param {Object} uri uri
+     * @param {Object} feature feature
      * @param {Object} result step result
      */
-    afterStep: function (uri, feature, { error, result }) { // all four parameters need to be passed
+    afterStep(uri, feature, { error, result }) { // all four parameters need to be passed
         if (error) { cucumberJson.attach(browser.takeScreenshot(), 'image/png'); }
     },
     /**
@@ -319,15 +323,15 @@ exports.config = {
             brandTitle: 'E2E Test Report',
             columnLayout: 1,
             metadata: {
-                "Test Environment": "",
-                "Test Started": startStr,
-                "Platform": os.type() + ' ' + os.release(),
-                "Duration": humanizeDuration(Date.now() - start, { round: true }),
-            }
+                'Test Environment': '',
+                'Test Started': startStr,
+                Platform: `${os.type()} ${os.release()}`,
+                Duration: humanizeDuration(Date.now() - start, { round: true }),
+            },
         };
 
         reporter.generate(options);
-    }
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
