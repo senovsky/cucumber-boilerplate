@@ -9,7 +9,7 @@ Feature: Failing Scenario Outline
 
     Scenario Outline: expect <text> to be displayed
         Given I open the url "http://example.com/"
-        Then  I expect that element "//p[contains(text(),'<text>')]" is displayed
+        Then  I expect that element __p containing <text>__ is displayed
 
         Examples:
             | text   |
