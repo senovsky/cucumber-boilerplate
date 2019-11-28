@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const cucumberJson = require('wdio-cucumberjs-json-reporter').default;
 const fs = require('fs-extra');
 const parser = require('./parser.js');
@@ -258,11 +257,11 @@ exports.config = {
     // },
     /**
      * Runs after a Cucumber step
-     * @param {Object} uri uri
-     * @param {Object} feature feature
+     * @param {String} uri uri
+     * @param {String} feature feature
      * @param {Object} result step result
      */
-    afterStep(uri, feature, { error, result }) { // all four parameters need to be passed
+    afterStep(uri, feature, { error }) { // all four parameters need to be passed
         if (error) { cucumberJson.attach(browser.takeScreenshot(), 'image/png'); }
     },
     /**
