@@ -260,7 +260,7 @@ exports.config = {
      * @param {String} feature feature
      * @param {Object} result step result
      */
-    afterStep(uri, feature, { error }) { // all four parameters need to be passed
+    afterStep(uri, feature, { error }) { // parameters uri and feature need to be passed
         if (error) { cucumberJson.attach(browser.takeScreenshot(), 'image/png'); }
     },
     /**
