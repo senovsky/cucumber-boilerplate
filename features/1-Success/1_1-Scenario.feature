@@ -4,4 +4,4 @@ Feature: Successful Scenario
 
     Scenario: open a website
         Given I open the url "http://example.com/"
-        Then  I expect that element "div h1" contains the text "Example Domain"
+        Then  I expect that element __h1__ contains the text "Example Domain"
