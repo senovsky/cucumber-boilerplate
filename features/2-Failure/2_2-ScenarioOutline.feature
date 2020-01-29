@@ -14,5 +14,5 @@ Feature: Failing Scenario Outline
         Examples:
             | text  |
             | This  |
-            | dmain |
             | is    |
+            | dmain |

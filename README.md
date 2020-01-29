@@ -11,12 +11,12 @@ All the step definitions should be written in a way that allows the step to be u
 ## Requirements
 
 - Node.js LTS, including npm ([NVM](https://github.com/coreybutler/nvm-windows) recommended)
+- Selenium server running at http://localhost:4444/wd/hub with chromedriver
+- Chrome
 
-Selenium server isn't required, because only Chrome is tested, using Selenium-less chromedriver service.
+## Jenkinsfile
 
-## .gitlab-ci.yml
-
-In the root folder, the file `.gitlab-ci.yml` contains sections `e2e_*`, `tests_passed` and `tests_failed`. It enables the tests to run automatically on a server, which also serves the HTML report.
+In the root folder, the `Jenkinsfile` contains stage `e2e-tests`. It enables the tests to run automatically on a server and create a JUnit report.
 
 ## Manual installation & test run
 
@@ -32,9 +32,9 @@ npm test
 
 ## View reports
 
-- The terminal shows progress in detail.
-- HTML report is available after the test run in the `./tmp/report.html` file.
-- Slackbot `e2e-tests` sends a message to workspace.slack.com's channel #deploys, settings [here](https://workspace.slack.com/services/123456789012)
+- The terminal shows progress in detail
+- JUnit report is available after the test run in the `.tmp` folder
+- slackSend sends a message to Slack based on `tokenCredentialId`
 
 # Risks and mitigations
 

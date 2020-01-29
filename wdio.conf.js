@@ -139,9 +139,9 @@ exports.config = {
     reporters: ['spec',
         ['junit', {
             outputDir: './.tmp',
-            outputFileFormat: function (options) { // optional
-                return `results-${options.cid}.xml`
-            }
+            outputFileFormat(options) {
+                return `results-${options.cid}.xml`;
+            },
         }],
     ],
     // If you are using Cucumber you need to specify the location of your step definitions.
@@ -226,7 +226,7 @@ exports.config = {
         global.assert = chai.assert;
         global.should = chai.should();
 
-        browser.setTimeout({ 'implicit': 10000 })
+        browser.setTimeout({ implicit: 10000 });
         // browser.maximizeWindow();
     },
     /**
