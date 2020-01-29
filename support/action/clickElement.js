@@ -1,5 +1,3 @@
-import checkIfElementExists from '../lib/checkIfElementExists';
-
 /**
  * Perform an click action on the given element
  * @param  {String}   action  The action to perform (click or doubleClick)
@@ -19,7 +17,7 @@ export default (action, type, selector) => {
      */
     const method = (action === 'click') ? 'click' : 'doubleClick';
 
-    checkIfElementExists(selector2);
+    $(selector2).waitForClickable();
 
     $(selector2)[method]();
 };

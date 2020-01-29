@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const find = require('find');
 const pageObjects = require('./features/pageObjects.json');
 
-const parser = function parser() {
+// const parser = function parser() {
     fs.removeSync('./features/parsed');
 
     find.file(/\.feature$/, './features', (files) => {
@@ -30,8 +30,8 @@ const parser = function parser() {
             fs.writeFile(parsedFile, parsedContents, (err) => { if (err) throw err; });
         });
     });
-};
+// };
 
-module.exports = parser;
+// module.exports = parser;
 
 // run only this function: node -e 'require("./parser")()'

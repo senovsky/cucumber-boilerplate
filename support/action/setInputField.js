@@ -1,5 +1,3 @@
-import checkIfElementExists from '../lib/checkIfElementExists';
-
 /**
  * Set the value of the given input field to a new value or add a value to the
  * current selector value
@@ -16,7 +14,7 @@ export default (method, value, selector) => {
 
     let checkValue = value;
 
-    checkIfElementExists(selector, false, 1);
+    $(selector).waitForClickable();
 
     if (!value) {
         checkValue = '';

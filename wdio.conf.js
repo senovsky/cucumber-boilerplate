@@ -1,9 +1,4 @@
-const cucumberJson = require('wdio-cucumberjs-json-reporter').default;
 const fs = require('fs-extra');
-const parser = require('./parser.js');
-
-const start = new Date().getTime();
-const startStr = Date(start).toString();
 
 exports.config = {
     //
@@ -16,7 +11,7 @@ exports.config = {
     runner: 'local',
     //
     // Override default path ('/wd/hub') for chromedriver service.
-    path: '/',
+    // path: '/',
     //
     // ==================
     // Specify Test Files
@@ -126,8 +121,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
-    chromeDriverLogs: './.tmp/chromeDriver',
+    services: [],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks.html
@@ -142,8 +136,14 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec', 'cucumberjs-json'],
-    //
+    reporters: ['spec',
+        ['junit', {
+            outputDir: './.tmp',
+            outputFileFormat: function (options) { // optional
+                return `results-${options.cid}.xml`
+            }
+        }],
+    ],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <boolean> show full backtrace for errors
@@ -181,7 +181,7 @@ exports.config = {
         // <boolean> add cucumber tags to feature or scenario name
         tagsInTitle: false,
         // <number> timeout for step definitions
-        timeout: 45000,
+        timeout: 20000,
     },
 
     //
@@ -198,8 +198,6 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     onPrepare: () => {
-        // Parse all feature files using pageObjects.json
-        parser();
         // Remove the `.tmp/` folder that holds the json and report files
         fs.removeSync('.tmp/');
     },
@@ -228,6 +226,7 @@ exports.config = {
         global.assert = chai.assert;
         global.should = chai.should();
 
+        browser.setTimeout({ 'implicit': 10000 })
         // browser.maximizeWindow();
     },
     /**
@@ -261,9 +260,9 @@ exports.config = {
      * @param {String} feature feature
      * @param {Object} result step result
      */
-    afterStep(uri, feature, { error }) { // parameters uri and feature need to be passed
-        if (error) { cucumberJson.attach(browser.takeScreenshot(), 'image/png'); }
-    },
+    // afterStep(uri, feature, { error }) {
+    //     if (error) { cucumberJson.attach(browser.takeScreenshot(), 'image/png'); }
+    // },
     /**
      * Runs after a Cucumber scenario
      * @param {Object} scenario scenario details
@@ -307,31 +306,7 @@ exports.config = {
      * Gets executed after all workers got shut down and the process is about to exit. An error
      * thrown in the onComplete hook will result in the test run failing.
      */
-    onComplete: () => {
-        // Generate the report when it all tests are done
-        const humanizeDuration = require('humanize-duration');
-        const reporter = require('cucumber-html-reporter');
-        const os = require('os');
-
-        const options = {
-            theme: 'bootstrap',
-            jsonDir: './.tmp/json',
-            output: './.tmp/report.html',
-            reportSuiteAsScenarios: true,
-            launchReport: false,
-            name: '',
-            brandTitle: 'E2E Test Report',
-            columnLayout: 1,
-            metadata: {
-                'Test Environment': '',
-                'Test Started': startStr,
-                Platform: `${os.type()} ${os.release()}`,
-                Duration: humanizeDuration(Date.now() - start, { round: true }),
-            },
-        };
-
-        reporter.generate(options);
-    },
+    // onComplete: () => {},
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session

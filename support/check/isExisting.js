@@ -11,10 +11,12 @@ export default (selector, falseCase) => {
     const elements = $$(selector);
 
     if (falseCase) {
-        expect(elements).to.have
-            .lengthOf(0, `Expected element "${selector}" not to exist`);
+        $(selector).waitForExist(undefined, true);
+        // expect(elements).to.have
+        //     .lengthOf(0, `Expected element "${selector}" not to exist`);
     } else {
-        expect(elements).to.have.length
-            .above(0, `Expected element "${selector}" to exist`);
+        $(selector).waitForExist();
+        // expect(elements).to.have.length
+        //     .above(0, `Expected element "${selector}" to exist`);
     }
 };

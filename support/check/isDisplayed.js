@@ -11,10 +11,12 @@ export default (selector, falseCase) => {
     const isDisplayed = $(selector).isDisplayed();
 
     if (falseCase) {
-        expect(isDisplayed).to.not
-            .equal(true, `Expected element "${selector}" not to be displayed`);
+        $(selector).waitForDisplayed(undefined, true);
+        // expect(isDisplayed).to.not
+        //     .equal(true, `Expected element "${selector}" not to be displayed`);
     } else {
-        expect(isDisplayed).to
-            .equal(true, `Expected element "${selector}" to be displayed`);
+        $(selector).waitForDisplayed();
+        // expect(isDisplayed).to
+        //     .equal(true, `Expected element "${selector}" to be displayed`);
     }
 };

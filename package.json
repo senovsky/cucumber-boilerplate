@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "read -p \"Are you sure you want to clean the project? [y/n] \" REPLY; if [[ $REPLY =~ ^[Yy]$ ]]; then rm -R .git .github demo-app test .codeclimate.yml .travis.yml jest.json wdio.BUILD.conf.js src/features/**; fi",
     "local-webserver": "forever start -s ./node_modules/.bin/http-server ./demo-app -s",
-    "test": "wdio",
+    "test": "node parser.js && wdio",
     "test:lint": "eslint 'src/**/*.js' 'test/**/*.js!(setup.js)'",
     "test:unit": "jest --config=jest.json --detectOpenHandles",
     "test:features": "npm run local-webserver & (wdio wdio.BUILD.conf.js; wdio_ret=$?; forever stopall; exit $wdio_ret)"
@@ -28,32 +28,28 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/plugin-proposal-export-default-from": "^7.7.4",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/register": "^7.7.7",
+    "@babel/cli": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
     "@types/cucumber": "^6.0.0",
-    "@wdio/cli": "^5.18.4",
+    "@wdio/cli": "^5.18.6",
     "@wdio/config": "^5.18.4",
-    "@wdio/cucumber-framework": "^5.16.15",
-    "@wdio/local-runner": "^5.18.4",
-    "@wdio/spec-reporter": "^5.16.11",
-    "@wdio/sync": "^5.17.0",
+    "@wdio/cucumber-framework": "^5.18.6",
+    "@wdio/local-runner": "^5.18.6",
+    "@wdio/spec-reporter": "^5.18.6",
+    "@wdio/sync": "^5.18.6",
     "chai": "^4.2.0",
-    "chromedriver": "^79.0.0",
     "eslint-plugin-wdio": "^5.13.2",
     "find": "^0.3.0",
     "fs-extra": "^8.1.0",
-    "webdriverio": "^5.18.4"
+    "webdriverio": "^5.18.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "cucumber-html-reporter": "^5.1.0",
+    "@babel/core": "^7.8.3",
+    "@wdio/junit-reporter": "^5.18.6",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.19.1",
-    "humanize-duration": "3.21.0",
-    "wdio-chromedriver-service": "^5.0.2",
-    "wdio-cucumberjs-json-reporter": "^1.1.1"
+    "eslint-plugin-import": "^2.20.0"
   }
 }

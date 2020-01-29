@@ -27,10 +27,6 @@ npm install
 ```
 
 ```
-./edit-template.sh
-```
-
-```
 npm test
 ```
 
