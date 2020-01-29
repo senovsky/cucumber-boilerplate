@@ -26,6 +26,8 @@ exports.config = {
         './features/parsed/1-Success/1_2-ScenarioOutline.feature',
         './features/parsed/2-Failure/2_1-Scenario.feature',
         './features/parsed/2-Failure/2_2-ScenarioOutline.feature',
+        // './features/parsed/3-wdio/3_1-clearInput.feature',
+        // './features/parsed/3-wdio/3_2-inexistent.feature',
     ],
     // Patterns to exclude.
     exclude: [
