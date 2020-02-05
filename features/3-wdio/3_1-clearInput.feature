@@ -3,8 +3,7 @@ Feature: Successful Scenario
     I want to test if the framework WebdriverIO can clear an input
 
     Scenario: open a website
-        Given I open the url "https://demoqa.com/html-contact-form/"
-        When  I type "Frst nm" to the input field "input.firstname"
-        When  I type "Last name" to the input field "input#lname"
-        When  I type "First name" to the input field "input.firstname"
-        When  I pause for 2222ms
+        Given I open the url "https://ant.design/components/form/"
+        When  I type "Frst txt" to the input field "input[placeholder='with allowClear']"
+        When  I click on the element "li a[href='#components-form-demo-validate-static']"
+        When  I type "First text" to the input field "input[placeholder='with allowClear']"

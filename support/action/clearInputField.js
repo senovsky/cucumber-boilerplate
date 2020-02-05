@@ -3,5 +3,8 @@
  * @param  {String}   selector Element selector
  */
 export default (selector) => {
-    $(selector).clearValue();
+    while ($(selector).getValue() !== '') {
+        $(selector).doubleClick();
+        browser.keys('Backspace');
+    }
 };

@@ -11,14 +11,26 @@ export default (method, value, selector) => {
      * @type {String}
      */
     const command = (method === 'add') ? 'addValue' : 'setValue';
-
     let checkValue = value;
+    let origValue = '';
 
     $(selector).waitForClickable();
+
+    if (method === 'add') {
+        origValue = $(selector).getValue();
+    } else {
+        while ($(selector).getValue() !== '') {
+            $(selector).doubleClick();
+            browser.keys('Backspace');
+        }
+    }
 
     if (!value) {
         checkValue = '';
     }
 
     $(selector)[command](checkValue);
+
+    const getValue = $(selector).getValue();
+    expect(getValue).to.equal(origValue + checkValue);
 };

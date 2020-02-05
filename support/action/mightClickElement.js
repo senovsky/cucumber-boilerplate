@@ -10,7 +10,9 @@ export default (type, selector) => {
      */
     const selector2 = (type === 'link') ? `=${selector}` : selector;
 
-    if ($(selector2).isDisplayed()) {
-        $(selector2)['click']();
-    };
+    console.log(new Date().toISOString() + $(selector).isClickable());
+    if ($(selector2).isClickable()) {
+        $(selector2).click();
+        console.log('click');
+    }
 };
