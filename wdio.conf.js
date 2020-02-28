@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const video = require('wdio-video-reporter');
 
 exports.config = {
     //
@@ -9,9 +9,6 @@ exports.config = {
     // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
     // on a remote machine).
     runner: 'local',
-    //
-    // Override default path ('/wd/hub') for chromedriver service.
-    // path: '/',
     //
     // ==================
     // Specify Test Files
@@ -62,7 +59,8 @@ exports.config = {
                 args: [
                     // '--headless',
                     // '--disable-gpu',
-                    '--window-size=1920,1080',
+                    '--window-size=1280,1024',
+                    '--disable-infobars',
                 ],
             },
         },
@@ -74,21 +72,10 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // The number of times to retry the entire specfile when it fails as a whole
-    // specFileRetries: 1,
+    specFileRetries: 1,
     //
-    // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
     // Enables colors for log output.
     coloredLogs: true,
-    // Set specific log levels per logger
-    // loggers:
-    // - webdriver, webdriverio
-    // - @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
-    // Level of logging verbosity: trace | debug | info | warn | error | silent
-    // logLevels: {
-    //     webdriver: 'info',
-    //     '@wdio/sauce-service': 'info'
-    // },
     //
     // Saves a screenshot to a given path if a command fails.
     screenshotPath: './errorShots/',
@@ -110,7 +97,7 @@ exports.config = {
     password: '',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 15000,
+    waitforTimeout: 10000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -132,18 +119,25 @@ exports.config = {
     // before running any tests.
     framework: 'cucumber',
     //
-    // The number of times to retry the entire specfile when it fails as a whole
-    // specFileRetries: 1,
-    //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec',
-        ['junit', {
-            outputDir: './.tmp',
-            outputFileFormat(options) {
-                return `results-${options.cid}.xml`;
-            },
+    //
+    // Level of logging verbosity: trace | debug | info | warn | error | silent
+    logLevel: 'info',
+    outputDir: './_results_',
+    reporters: [
+        'spec',
+        [video, {
+            saveAllVideos: true,       // If true, also saves videos for successful test cases
+            videoSlowdownMultiplier: 3, // Higher to get slower videos, lower for faster videos [Value 1-100]
+            videoRenderTimeout: 5,      // Max seconds to wait for a video to finish rendering
+        }],
+        ['allure', {
+            outputDir: './_results_/allure-raw',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
+            useCucumberStepReporter: true,
         }],
     ],
     // If you are using Cucumber you need to specify the location of your step definitions.
@@ -183,7 +177,7 @@ exports.config = {
         // <boolean> add cucumber tags to feature or scenario name
         tagsInTitle: false,
         // <number> timeout for step definitions
-        timeout: 20000,
+        timeout: 22222,
     },
 
     //
@@ -199,10 +193,8 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    onPrepare: () => {
-        // Remove the `.tmp/` folder that holds the json and report files
-        fs.removeSync('.tmp/');
-    },
+    // onPrepare: () => {
+    // },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows
      * you to manipulate configurations depending on the capability or spec.
@@ -228,8 +220,7 @@ exports.config = {
         global.assert = chai.assert;
         global.should = chai.should();
 
-        browser.setTimeout({ implicit: 10000 });
-        // browser.maximizeWindow();
+        browser.setTimeout({ 'implicit': 10000 })
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -277,7 +268,6 @@ exports.config = {
      */
     // afterFeature: function (uri, feature) {
     // },
-
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
